@@ -1,15 +1,18 @@
 package com.example.esun.controller;
 
+import com.example.esun.dto.UsersDto;
 import com.example.esun.model.Users;
 import com.example.esun.service.UserService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Date;
 
-@RestController
+
+@RestController()
 public class UsersController
 {
     @Autowired
@@ -37,5 +40,24 @@ public class UsersController
         }
     }
 
+    @PostMapping("/user/login")
+    public String login(
+            @RequestParam("phone") String phone,
+            @RequestParam("password") String password,
+            HttpSession session) {
+        UsersDto result = userService.login(phone, password);
+        if(result != null) {
+            session.setAttribute("loggedInUser", result);
+            return "登入成功";
+        }else {
+            throw new RuntimeException("登入失敗，帳號或密碼錯誤");
+        }
+        //return result;
+    }
 
+    @GetMapping("/user/logout")
+    public boolean logout(HttpSession session) {
+        session.invalidate();
+        return true;
+    }
 }
