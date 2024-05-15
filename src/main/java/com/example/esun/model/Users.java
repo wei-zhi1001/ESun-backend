@@ -1,7 +1,10 @@
 package com.example.esun.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
+
+import java.util.List;
 
 @Entity
 @Data
@@ -30,4 +33,8 @@ public class Users {
 
     @Column(name = "Phone")
     private String phone;
+
+    @OneToMany(mappedBy = "user")
+    @JsonIgnore
+    private List<Post> post;
 }

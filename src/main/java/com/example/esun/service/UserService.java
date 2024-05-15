@@ -5,6 +5,7 @@ import com.example.esun.model.Users;
 
 public interface UserService {
     Users addUsers(Users users);
+    Users getUserById(long id);
     Users updateUsers(Users users);
     Users deleteUsers(Users users);
     boolean checkIfUserExist(String phone);
