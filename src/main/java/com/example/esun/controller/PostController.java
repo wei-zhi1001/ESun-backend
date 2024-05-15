@@ -11,6 +11,7 @@ import java.util.Date;
 import java.util.List;
 
 @RestController()
+@CrossOrigin(allowCredentials = "true", origins = { "http://localhost:5173" })
 public class PostController
 {
 

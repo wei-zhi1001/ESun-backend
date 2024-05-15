@@ -1,9 +1,11 @@
 package com.example.esun.model;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Data
@@ -30,5 +32,7 @@ public class Post {
     @Column(name = "Created At")
     private Date createdAt;
 
-
+    @OneToMany(mappedBy = "post")
+    @JsonIgnore
+    private List<Comment> comments;
 }

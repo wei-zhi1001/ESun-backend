@@ -1,6 +1,7 @@
 package com.example.esun.model;
 import jakarta.persistence.*;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
@@ -26,8 +27,9 @@ public class Comment {
     @Column(name = "Content")
     private String content;
 
+    @Temporal(TemporalType.TIMESTAMP)
+    @DateTimeFormat(pattern = "yyyy/MM/dd HH:mm:ss EE")
     @Column(name = "Created At")
     private Date createdAt;
 
-    // Getters and setters
 }
