@@ -28,5 +28,6 @@ public class Users {
     @Column(name = "Biography")
     private String biography;
 
-
+    @Column(name = "Phone")
+    private String phone;
 }
