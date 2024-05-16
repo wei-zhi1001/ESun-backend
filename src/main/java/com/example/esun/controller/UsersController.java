@@ -57,4 +57,9 @@ public class UsersController
         session.invalidate();
         return true;
     }
+    @GetMapping("/user/check")
+    public UsersDto checkLogin(HttpSession session) {
+        UsersDto loggedInUser = (UsersDto) session.getAttribute("loggedInUser");
+        return loggedInUser;
+    }
 }
