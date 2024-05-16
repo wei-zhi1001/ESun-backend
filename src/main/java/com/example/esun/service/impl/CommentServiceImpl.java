@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class CommentServiceImpl implements CommentService {
@@ -30,5 +31,10 @@ public class CommentServiceImpl implements CommentService {
         Date today = new Date();
         comment.setCreatedAt(today);
         commentDao.save(comment);
+    }
+
+    @Override
+    public List<Comment> getAllComment() {
+        return commentDao.findAll();
     }
 }
