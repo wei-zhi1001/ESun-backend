@@ -38,14 +38,14 @@ public class UsersController
     }
 
     @PostMapping("/user/login")
-    public String login(
+    public UsersDto login(
             @RequestParam("phone") String phone,
             @RequestParam("password") String password,
             HttpSession session) {
         UsersDto result = userService.login(phone, password);
         if(result != null) {
             session.setAttribute("loggedInUser", result);
-            return "登入成功";
+            return result;
         }else {
             throw new RuntimeException("登入失敗，帳號或密碼錯誤");
         }

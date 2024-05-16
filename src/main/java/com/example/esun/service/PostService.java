@@ -8,5 +8,5 @@ public interface PostService {
     boolean addPost(Post post);
     List<Post> getAllPosts();
     boolean editPost(Long postId,String content,String image);
-    void deletePost(Long postId);
+    boolean deletePost(Long postId);
 }

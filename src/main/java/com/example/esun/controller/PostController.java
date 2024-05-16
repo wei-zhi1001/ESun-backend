@@ -52,7 +52,7 @@ public class PostController
     }
 
     @DeleteMapping("post/deletePost")
-    public void deletePost(@RequestParam("postId") Long postId){
-        postService.deletePost(postId);
+    public boolean deletePost(@RequestParam("postId") Long postId){
+        return postService.deletePost(postId);
     }
 }

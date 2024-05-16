@@ -1,6 +1,8 @@
 package com.example.esun.service.impl;
 
+import com.example.esun.dao.CommentDao;
 import com.example.esun.dao.PostDao;
+import com.example.esun.model.Comment;
 import com.example.esun.model.Post;
 import com.example.esun.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,8 @@ public class PostServiceImpl implements PostService {
 
     @Autowired
     private PostDao postDao;
+    @Autowired
+    private CommentDao commentDao;
 
     @Override
     public boolean addPost(Post post) {
@@ -47,7 +51,20 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public void deletePost(Long postId) {
-        postDao.deleteById(postId);
+    public boolean deletePost(Long postId) {
+        Optional<Post> optionalPost = postDao.findById(postId);
+        if (optionalPost.isPresent()) {
+            Post post = optionalPost.get();
+            // 刪除與帖子相關的評論
+            List<Comment> comments = post.getComments();
+            for (Comment comment : comments) {
+                commentDao.delete(comment);
+            }
+            // 最後刪除帖子本身
+            postDao.delete(post);
+            return true;
+        } else {
+            return false; // 如果帖子不存在，返回false
+        }
     }
 }
